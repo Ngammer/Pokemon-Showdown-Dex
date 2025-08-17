@@ -6,11 +6,11 @@
 	<title>Pok&eacute;dex - Pok&eacute;mon Showdown</title>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE8" />
-	<link rel="stylesheet" href="//181.30.221.221:3000/style/font-awesome.css" />
+	<link rel="stylesheet" href="//201.252.16.146:3000/style/font-awesome.css" />
 	<link rel="stylesheet" href="/theme/panels.css?" />
 	<link rel="stylesheet" href="/theme/main.css?" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link rel="stylesheet" href="//181.30.221.221:3000/style/utilichart.css?" />
+	<link rel="stylesheet" href="//201.252.16.146:3000/style/utilichart.css?" />
 	<link rel="stylesheet" href="/theme/pokedex.css?" />
 
 	<!-- Workarounds for IE bugs to display trees correctly. -->
@@ -29,7 +29,7 @@
 				<li><a class="button nav-last purplebutton" href="//smogon.com/forums/" target="_blank">Forum</a></li>
 			</ul>
 			<ul class="nav nav-play">
-				<li><a class="button greenbutton nav-first nav-last" href="http://181.30.221.221:3000/">Play</a></li>
+				<li><a class="button greenbutton nav-first nav-last" href="http://201.252.16.146:3000/">Play</a></li>
 			</ul>
 			<div style="clear:both"></div>
 		</div>
@@ -67,20 +67,20 @@
 	<script src="/js/lib/backbone-min.js"></script>
 	<script src="/js/panels.js?"></script>
 
-	<script src="//181.30.221.221:3000/config/config.js?"></script>
-	<script src="//181.30.221.221:3000/js/battledata.js?"></script>
-	<script src="//181.30.221.221:3000/data/search-index.js?"></script>
-	<script src="//181.30.221.221:3000/data/pokedex.js?"></script>
-	<script src="//181.30.221.221:3000/data/teambuilder-tables.js?"></script>
-	<script src="//181.30.221.221:3000/data/learnsets.js?"></script>
-	<script src="//181.30.221.221:3000/data/moves.js?"></script>
-	<script src="//181.30.221.221:3000/data/abilities.js?"></script>
-	<script src="//181.30.221.221:3000/data/items.js?"></script>
-	<script src="//181.30.221.221:3000/data/formats-data.js?"></script>
-	<script src="//181.30.221.221:3000/data/typechart.js?"></script>
-	<script src="//181.30.221.221:3000/data/aliases.js?"></script>
-	<script src="//181.30.221.221:3000/js/battle-dex-search.js?"></script>
-	<script src="//181.30.221.221:3000/js/search.js?"></script>
+	<script src="//201.252.16.146:3000/config/config.js?"></script>
+	<script src="//201.252.16.146:3000/js/battledata.js?"></script>
+	<script src="//201.252.16.146:3000/data/search-index.js?"></script>
+	<script src="//201.252.16.146:3000/data/pokedex.js?"></script>
+	<script src="//201.252.16.146:3000/data/teambuilder-tables.js?"></script>
+	<script src="//201.252.16.146:3000/data/learnsets.js?"></script>
+	<script src="//201.252.16.146:3000/data/moves.js?"></script>
+	<script src="//201.252.16.146:3000/data/abilities.js?"></script>
+	<script src="//201.252.16.146:3000/data/items.js?"></script>
+	<script src="//201.252.16.146:3000/data/formats-data.js?"></script>
+	<script src="//201.252.16.146:3000/data/typechart.js?"></script>
+	<script src="//201.252.16.146:3000/data/aliases.js?"></script>
+	<script src="//201.252.16.146:3000/js/battle-dex-search.js?"></script>
+	<script src="//201.252.16.146:3000/js/search.js?"></script>
 	<script src="/js/pokedex.js?"></script>
 	<script src="/js/pokedex-pokemon.js?"></script>
 	<script src="/js/pokedex-moves.js?"></script>
