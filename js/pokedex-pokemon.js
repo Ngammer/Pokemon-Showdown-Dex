@@ -20,19 +20,19 @@ var PokedexPokemonPanel = PokedexResultPanel.extend({
 
 		if (pokemon.isNonstandard) {
 			if (id === 'missingno') {
-				buf += '<div class="warning"><strong>Note:</strong> This is a glitch Pok&eacute;mon from Red/Blue/Yellow.</div>';
+				buf += '<div class="warning">A <strong>glitch Pok&eacute;mon</strong> from Red/Blue/Yellow.</div>';
 			} else if (id.substr(0, 8) === 'pokestar') {
-				buf += '<div class="warning"><strong>Note:</strong> This is a Pok&eacute;mon from <a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9star_Studios" target="_blank">Pok&eacute;star Studios in Black 2 and White 2</a>.</div>';
+				buf += '<div class="warning">A Pok&eacute;mon from <a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9star_Studios" target="_blank"><strong>Pok&eacute;star Studios</strong> in Black 2 and White 2</a>.</div>';
 			} else if (pokemon.isNonstandard === 'Past') {
-				buf += '<div class="warning"><strong>Note:</strong> This Pok&eacute;mon is only usable in past generations and National Dex formats.</div>';
+				buf += '<div class="warning">Only usable in <strong>past generations</strong> and National Dex formats.</div>';
 			} else if (pokemon.isNonstandard === 'LGPE') {
-				buf += '<div class="warning"><strong>Note:</strong> Pok&eacute;mon Let\'s Go, Pikachu! and Let\'s Go, Eevee! only.</div>';
+				buf += '<div class="warning">Pok&eacute;mon <strong>Let\'s Go, Pikachu! and Let\'s Go, Eevee!</strong> only.</div>';
 			} else if (pokemon.isNonstandard === 'Gigantamax') {
-				buf += '<div class="warning"><strong>Note:</strong> This Pok&eacute;mon is not obtainable in the games, even via hacking.</div>';
+				buf += '<div class="warning"><strong>Not obtainable</strong> in the games, even via hacking.</div>';
 			} else if (pokemon.num > 0) {
-				buf += '<div class="warning"><strong>Note:</strong> This Pok&eacute;mon is unreleased.</div>';
+				buf += '<div class="warning"><strong>Unreleased</strong>.</div>';
 			} else {
-				buf += '<div class="warning"><strong>Note:</strong> This is a made-up Pok&eacute;mon by <a href="http://www.smogon.com/cap/" target="_blank">Smogon CAP</a>.</div>';
+				buf += '<div class="warning">A <strong>made-up</strong> Pok&eacute;mon by <a href="http://www.smogon.com/cap/" target="_blank">Smogon <strong>CAP</strong></a>.</div>';
 			}
 		}
 
@@ -105,24 +105,24 @@ var PokedexPokemonPanel = PokedexResultPanel.extend({
 		buf += '</table></dd>';
 
 		buf += '<dt>Evolution:</dt> <dd>';
-		var template = pokemon;
-		while (template.prevo) template = Dex.species.get(template.prevo);
-		if (template.evos) {
+		var basic = pokemon;
+		while (basic.prevo) basic = Dex.species.get(basic.prevo);
+		if (basic.evos) {
 			buf += '<table class="evos"><tr><td>';
-			var evos = [template];
+			var evos = [basic.name];
+			var template = basic;
 			while (evos) {
-				if (evos[0] === 'dustox') evos = ['beautifly','dustox'];
+				if (evos[0] === 'Dustox') evos = ['Beautifly','Dustox'];
+				if (evos[0] === 'Goodra-Hisui') evos = ['Goodra','Goodra-Hisui'];
 				for (var i=0; i<evos.length; i++) {
 					template = Dex.species.get(evos[i]);
-					if (i <= 0) {
-						if (!evos[0].exists) {
-							if (evos[1] === 'dustox') {
-								buf += '</td><td class="arrow"><span>&rarr;<br />&rarr;</span></td><td>';
-							} else if (template.prevo) {
-								buf += '</td><td class="arrow"><span><abbr title="' + this.getEvoMethod(template) + '">&rarr;</abbr></span></td><td>';
-							} else {
-								buf += '</td><td class="arrow"><span>&rarr;</span></td><td>';
-							}
+					if (i <= 0 && evos[0] !== basic.name) {
+						if (evos[0] === 'Dustox' || evos[0] === 'Goodra') {
+							buf += '</td><td class="arrow"><span>&rarr;<br />&rarr;</span></td><td>';
+						} else if (template.prevo) {
+							buf += '</td><td class="arrow"><span><abbr title="' + this.getEvoMethod(template) + '">&rarr;</abbr></span></td><td>';
+						} else {
+							buf += '</td><td class="arrow"><span>&rarr;</span></td><td>';
 						}
 					}
 					var name = (template.forme ? template.baseSpecies+'<small>-'+template.forme+'</small>' : template.name);
@@ -326,7 +326,7 @@ var PokedexPokemonPanel = PokedexResultPanel.extend({
 		}
 	},
 	getEvoMethod: function(evo) {
-		let condition = evo.evoCondition ? ` ${evo.evoCondition}` : ``;
+		var condition = evo.evoCondition ? ` ${evo.evoCondition}` : ``;
 		switch (evo.evoType) {
 		case 'levelExtra':
 			return 'level-up' + condition;
@@ -335,15 +335,15 @@ var PokedexPokemonPanel = PokedexResultPanel.extend({
 		case 'levelHold':
 			return 'level-up holding ' + evo.evoItem + condition;
 		case 'useItem':
-			return evo.evoItem;
+			return evo.evoItem + condition;
 		case 'levelMove':
 			return 'level-up with ' + evo.evoMove + condition;
 		case 'trade':
-			return 'trade';
+			return 'trade' + condition;
 		case 'other':
 			return evo.evoCondition;
 		default:
-			return 'level ' + evo.evoLevel;
+			return 'level ' + evo.evoLevel + condition;
 		}
 	},
 	selectTab: function(e) {
@@ -495,7 +495,7 @@ var PokedexPokemonPanel = PokedexResultPanel.extend({
 					break;
 				case 'd': // tm/hm
 					if (lastChanged) buf += '<li class="resultheader"><h3>TM/HM</h3></li>';
-					desc = '<span class="itemicon" style="margin-top:-3px;'+Dex.getItemIcon({spritenum:508})+'"></span>';
+					desc = '<img src="' + Dex.resourcePrefix + '/sprites/itemicons/tm-normal.png" style="margin-top:-3px;opacity:.7" width="24" height="24" alt="TM/HM" />';
 					break;
 				case 'e': // tutor
 					if (lastChanged) buf += '<li class="resultheader"><h3>Tutor</h3></li>';

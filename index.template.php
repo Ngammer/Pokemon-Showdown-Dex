@@ -42,7 +42,7 @@
 			</h1>
 			<ul class="tabbar centered" style="margin-bottom: 18px"><li><button class="button nav-first cur" value="">Search</button></li><li><button class="button" value="pokemon/">Pokémon</button></li><li><button class="button nav-last" value="moves/">Moves</button></li></ul>
 			<div class="searchboxwrapper">
-				<input class="textbox searchbox" type="search" name="q" value="<?php echo @$_REQUEST['q'] ?>" autocomplete="off" autofocus placeholder="Search Pok&eacute;mon, moves, abilities, items, types, or more" />
+				<input class="textbox searchbox" type="search" name="q" value="<?php echo htmlspecialchars($_REQUEST['q'] ?? '') ?>" autocomplete="off" autofocus placeholder="Search Pok&eacute;mon, moves, abilities, items, types, or more" />
 			</div>
 			<noscript><p>
 				<strong>Requires JavaScript!</strong>
@@ -80,7 +80,7 @@
 	<script src="//181.1.60.17:3000/data/typechart.js?"></script>
 	<script src="//181.1.60.17:3000/data/aliases.js?"></script>
 	<script src="//181.1.60.17:3000/js/battle-dex-search.js?"></script>
-	<script src="//181.1.60.17:3000/js/search.js?"></script>
+	<script src="//181.1.60.17:3000/js/oldclient/search.js?"></script>
 	<script src="/js/pokedex.js?"></script>
 	<script src="/js/pokedex-pokemon.js?"></script>
 	<script src="/js/pokedex-moves.js?"></script>

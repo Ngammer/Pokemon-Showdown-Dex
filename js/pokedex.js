@@ -65,7 +65,7 @@ var PokedexAbilityPanel = PokedexResultPanel.extend({
 		buf += '<a href="/" class="pfx-backbutton" data-target="back"><i class="fa fa-chevron-left"></i> Pok&eacute;dex</a>';
 		buf += '<h1><a href="/abilities/'+id+'" data-target="push" class="subtle">'+ability.name+'</a></h1>';
 
-		if (ability.isNonstandard && ability.id !== 'noability') buf += '<div class="warning"><strong>Note:</strong> This is a made-up ability by <a href="http://www.smogon.com/cap/" target="_blank">Smogon CAP</a>.</div>';
+		if (ability.isNonstandard && ability.id !== 'noability') buf += '<div class="warning">A <strong>made-up</strong> ability by <a href="http://www.smogon.com/cap/" target="_blank">Smogon <strong>CAP</strong></a>.</div>';
 
 		buf += '<p>'+Dex.escapeHTML(ability.desc)+'</p>';
 
@@ -92,6 +92,7 @@ var PokedexAbilityPanel = PokedexResultPanel.extend({
 		// pokemon
 		buf += '<h3>Pok&eacute;mon with this ability</h3>';
 		buf += '<ul class="utilichart nokbd">';
+		buf += '<li>Loading...</li>';
 		buf += '</ul>';
 
 		buf += '</div>';
@@ -105,11 +106,27 @@ var PokedexAbilityPanel = PokedexResultPanel.extend({
 		var buf = '';
 		for (var pokemonid in BattlePokedex) {
 			var template = BattlePokedex[pokemonid];
+			if (!template.abilities) continue;
 			if (template.isNonstandard && !ability.isNonstandard) continue;
 			if (template.abilities['0'] === ability.name || template.abilities['1'] === ability.name || template.abilities['H'] === ability.name) {
 				buf += BattleSearch.renderPokemonRow(template);
 			}
 		}
+
+		var hasNonstandard = false;
+		for (var pokemonid in BattlePokedex) {
+			var template = BattlePokedex[pokemonid];
+			if (!template.abilities) continue;
+			if (!(template.isNonstandard && !ability.isNonstandard)) continue;
+			if (template.abilities['0'] === ability.name || template.abilities['1'] === ability.name || template.abilities['H'] === ability.name) {
+				if (!hasNonstandard) {
+					buf += '<li class="resultheader"><h3>Unavailable Pok&eacute;mon with this ability</h3></li>';
+					hasNonstandard = true;
+				}
+				buf += BattleSearch.renderPokemonRow(template);
+			}
+		}
+
 		this.$('.utilichart').html(buf);
 	}
 });
@@ -255,6 +272,7 @@ var PokedexTypePanel = PokedexResultPanel.extend({
 		var pureBuf = '<li class="resultheader"><h3>Pure '+type+' Pok&eacute;mon</h3></li>';
 		for (var templateid in BattlePokedex) {
 			var template = BattlePokedex[templateid];
+			if (!template.types) continue;
 			if (template.types[0] === type && !template.types[1]) {
 				pureBuf += BattleSearch.renderPokemonRow(template);
 			}
@@ -825,7 +843,7 @@ var PokedexTierPanel = PokedexResultPanel.extend({
 			buf += '<p>"NFE" (Not Fully Evolved) as a tier refers to NFE Pokémon that aren\'t legal in LC and don\'t make the usage cutoff for a tier such as PU.</p>';
 		}
 
-		if (id.startsWith('cap')) buf += '<div class="warning"><strong>Note:</strong> <a href="http://www.smogon.com/cap/" target="_blank">Smogon CAP</a> is a project to make up Pok&eacute;mon.</div>';
+		if (id.startsWith('cap')) buf += '<div class="warning"><a href="http://www.smogon.com/cap/" target="_blank">Smogon CAP</a> is a project to make up Pok&eacute;mon.</div>';
 
 		// buf += '<p></p>';
 
